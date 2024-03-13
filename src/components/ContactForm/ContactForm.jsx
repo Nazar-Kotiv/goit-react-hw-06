@@ -19,7 +19,6 @@ export default function ContactForm() {
   });
 
   const handleSubmit = (values, actions) => {
-    console.log("Form Values:", values);
     const newContact = {
       name: values.name,
       number: values.number,
