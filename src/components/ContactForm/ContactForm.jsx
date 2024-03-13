@@ -1,70 +1,70 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { nanoid } from "nanoid";
 import styles from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-export default function ContactForm({ onAddContact }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
+
   const FeedbackSchema = Yup.object().shape({
-    contact: Yup.object().shape({
-      name: Yup.string()
-        .min(3, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Required"),
-      number: Yup.string()
-        .min(3, "Too Short!")
-        .max(50, "Too Long!")
-        .required("Required"),
-    }),
+    name: Yup.string()
+      .min(3, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    number: Yup.string()
+      .min(3, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
   });
 
   const handleSubmit = (values, actions) => {
+    console.log("Form Values:", values);
     const newContact = {
-      id: nanoid(),
-      name: values.contact.name,
-      number: values.contact.number,
+      name: values.name,
+      number: values.number,
     };
     actions.resetForm();
-    if (onAddContact) {
-      onAddContact(newContact);
-    }
+
+    dispatch(addContact(newContact.name, newContact.number));
   };
 
   return (
     <Formik
-      initialValues={{ contact: { name: "", number: "" } }}
+      initialValues={{ name: "", number: "" }}
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
       <Form className={styles.formContainer}>
         <div className={styles.formField}>
-          <label htmlFor="contact.name" className={styles.label}>
+          <label htmlFor="name" className={styles.label}>
             Name
           </label>
           <Field
             type="text"
-            name="contact.name"
+            name="name"
             placeholder="Name"
             className={styles.inputField}
           />
           <ErrorMessage
-            name="contact.name"
+            name="name"
             component="div"
             className={styles.errorMessage}
           />
         </div>
 
         <div className={styles.formField}>
-          <label htmlFor="contact.number" className={styles.label}>
+          <label htmlFor="number" className={styles.label}>
             Number
           </label>
           <Field
             type="text"
-            name="contact.number"
+            name="number"
             placeholder="Number"
             className={styles.inputField}
           />
           <ErrorMessage
-            name="contact.number"
+            name="number"
             component="div"
             className={styles.errorMessage}
           />
