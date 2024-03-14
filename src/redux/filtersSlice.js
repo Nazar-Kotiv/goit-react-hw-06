@@ -14,17 +14,7 @@ const filterSlice = createSlice({
   initialState: filtersInitialState,
   reducers: {
     changeFilter: (state, action) => {
-      const filterValue = action.payload.toLowerCase();
-
-      state.contacts.filters.name = filterValue;
-
-      if (filterValue.trim() === "") {
-        state.contacts.items = filtersInitialState.contacts.items;
-      } else {
-        state.contacts.items = filtersInitialState.contacts.items.filter(
-          (contact) => contact.name.toLowerCase().includes(filterValue)
-        );
-      }
+      state.name = action.payload;
     },
   },
 });

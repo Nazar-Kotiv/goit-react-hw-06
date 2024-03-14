@@ -36,17 +36,12 @@ const contactsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(changeFilter, (state, action) => {
-      const originalItems = contactsInitialState.contacts.items;
-      const filterValue = action.payload.toLowerCase();
-
-      state.contacts.items = filterValue
-        ? originalItems.filter((contact) =>
-            contact.name.toLowerCase().includes(filterValue)
-          )
-        : [...originalItems];
+      const { name } = action.payload;
+      state.contacts.items = state.contacts.items.filter((contact) =>
+        contact.name.includes(name)
+      );
     });
   },
 });
-
 export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
