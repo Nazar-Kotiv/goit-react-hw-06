@@ -19,7 +19,7 @@ export default function SearchBox() {
       <input
         className={css.findInput}
         type="text"
-        value={serchForName || ""}
+        value={serchForName}
         onChange={handleselectNameFilter}
         placeholder="Find contact by name"
       />

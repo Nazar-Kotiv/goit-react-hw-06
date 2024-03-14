@@ -1,5 +1,4 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { changeFilter } from "./filtersSlice";
 
 const contactsInitialState = {
   contacts: {
@@ -34,14 +33,7 @@ const contactsSlice = createSlice({
       );
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(changeFilter, (state, action) => {
-      const { name } = action.payload;
-      state.contacts.items = state.contacts.items.filter((contact) =>
-        contact.name.includes(name)
-      );
-    });
-  },
 });
+
 export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
