@@ -13,14 +13,17 @@ const filterSlice = createSlice({
   name: "filters",
   initialState: filtersInitialState,
   reducers: {
-    changeFilter: (state, action) => {
-      return {
-        ...state,
-        filters: {
-          ...state.filters,
-          name: action.payload,
-        },
-      };
+    changeFilter: {
+      reducer: (state, action) => {
+        state.filters.name = action.payload;
+      },
+      // return {
+      //   ...state,
+      //   filters: {
+      //     ...state.filters,
+      //     name: action.payload,
+      //   },
+      // };
     },
   },
 });
