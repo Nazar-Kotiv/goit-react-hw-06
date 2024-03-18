@@ -7,9 +7,7 @@ export default function ContactList() {
   const filter = useSelector(selectNameFilter);
 
   const filteredContacts = contacts.filter((contact) =>
-    contact.name.includes(
-      filter.charAt(0).toUpperCase() + filter.slice(1).toLowerCase()
-    )
+    contact.name.toLowerCase().includes(filter.toLowerCase())
   );
   return (
     <div>
